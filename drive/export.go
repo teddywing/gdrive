@@ -5,6 +5,7 @@ import (
 	"io"
 	"mime"
 	"os"
+	"strings"
 )
 
 var DefaultExportMime = map[string]string{
@@ -102,6 +103,8 @@ func getExportMime(userMime, fileMime string) (string, error) {
 }
 
 func getExportFilename(name, mimeType string) string {
+	name = strings.ReplaceAll(name, "/", "_")
+
 	extensions, err := mime.ExtensionsByType(mimeType)
 	if err != nil || len(extensions) == 0 {
 		return name
